@@ -9,6 +9,12 @@
 	"assets": {
 		"directory": "./dist"
 	},
+	"routes": [
+		{
+			"pattern": "blog.makfichen.dev",
+			"custom_domain": true
+		}
+	],
 	"observability": {
 		"enabled": true
 	},
