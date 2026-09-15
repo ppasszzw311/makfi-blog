@@ -35,14 +35,7 @@ export default defineConfig({
           },
       },
 	],
-
-  adapter: cloudflare({
-      platformProxy: {
-          enabled: true
-      },
-
-      imageService: "cloudflare"
-  }),
+  output: 'static',
   vite: {
     optimizeDeps: {
         include: [
