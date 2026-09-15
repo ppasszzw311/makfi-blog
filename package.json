@@ -11,7 +11,7 @@
     "preview": "astro build && wrangler pages dev",
     "astro": "astro",
     "generate-types": "wrangler types",
-    "deploy": "astro build && wrangler pages deploy dist --project-name=makfi-blog",
+    "deploy": "astro build && wrangler deploy",
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
