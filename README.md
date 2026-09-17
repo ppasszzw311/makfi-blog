@@ -1,63 +1,64 @@
-# Astro Starter Kit: Blog
+# makfi-blog
 
-```sh
-npm create astro@latest -- --template blog
-```
+A personal blog built with [Astro](https://astro.build) and the [CitrusGrid](https://github.com/rightdoor/citrus-grid) theme, deployed to Cloudflare Workers.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-Features:
-
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Project Structure
 
 ```text
-├── public/
+├── public/              static assets (avatar, logo, favicon, friend icons)
 ├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
+│   ├── components/       theme UI components
+│   ├── content/posts/    blog posts (Markdown)
+│   ├── i18n/              translation strings
+│   ├── layouts/           base page layout
+│   ├── pages/             routes (home, archive, categories, tags, friends, about, post)
+│   ├── styles/            theme styles (Tailwind v4)
+│   └── site.config.ts     site title, author, socials, language, feature toggles
+├── scripts/               build-time helpers (slugs, LQIP, search index, etc.)
 ├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+├── wrangler.jsonc
+└── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
+## Commands
 
 All commands are run from the root of the project, from a terminal:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+| Command                    | Action                                              |
+| :-------------------------- | :--------------------------------------------------- |
+| `npm install`                | Installs dependencies                                |
+| `npm run dev`                 | Starts local dev server at `localhost:4321`          |
+| `npm run build`               | Builds the production site to `./dist/`              |
+| `npm run preview`             | Builds and previews locally via Wrangler             |
+| `npm run new-post -- <slug>`  | Scaffolds a new post at `src/content/posts/<slug>.md`|
+| `npm run check`               | Type-checks the project                              |
+| `npm run deploy`              | Builds and deploys to Cloudflare Workers             |
 
-## 👀 Want to learn more?
+## Writing posts
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Posts live in `src/content/posts/*.md`. Frontmatter fields:
+
+```yaml
+title: "Post title"
+slug: post-slug
+index: 0            # higher = pinned above newer posts
+description: "One-line summary"
+category: "General"
+tags: [tag1, tag2]
+published: 2024-01-01
+draft: false
+```
+
+Images referenced with a relative path (e.g. `./cover.webp`) should sit alongside the post's Markdown file.
+
+## Customizing the site
+
+Edit `src/site.config.ts` for the site title, author, avatar/logo, default language, social links, and to enable/disable comments, visitor stats, and friend links.
+
+## Deploying
+
+This project deploys Astro's static build output (`./dist`) as Cloudflare Workers assets — see `wrangler.jsonc` for the custom domain and deploy config.
 
 ## Credit
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+Theme based on [CitrusGrid](https://github.com/rightdoor/citrus-grid) by [rightdoor](https://github.com/rightdoor), MIT licensed.

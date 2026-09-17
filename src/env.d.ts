@@ -1,5 +1,7 @@
-type Runtime = import("@astrojs/cloudflare").Runtime<Env>;
+/// <reference types="astro/client" />
 
-declare namespace App {
-	interface Locals extends Runtime {}
+declare module '*.json' {
+  // biome-ignore lint/suspicious/noExplicitAny: JSON module declarations with loose typing
+  const value: Record<string, any>
+  export default value
 }

@@ -3,30 +3,64 @@
   "type": "module",
   "version": "0.0.1",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.14.0"
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/postbuild.js",
     "preview": "astro build && wrangler pages dev",
     "astro": "astro",
+    "check": "astro check",
+    "new-post": "node scripts/new-post.js",
+    "format-post-meta": "node scripts/format-post-meta.js",
     "generate-types": "wrangler types",
-    "deploy": "astro build && wrangler deploy",
+    "deploy": "astro build && node scripts/postbuild.js && wrangler deploy",
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.3.1",
-    "@astrojs/mdx": "^8.0.1",
+    "@astrojs/markdown-remark": "^7.2.4",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
+    "@swup/astro": "^1.8.0",
+    "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.2",
-    "sharp": "^0.35.0"
+    "dayjs": "^1.11.23",
+    "katex": "^0.18.4",
+    "lightningcss": "^1.33.0",
+    "pagefind": "^1.5.2",
+    "photoswipe": "^5.4.4",
+    "pinyin-pro": "^3.29.3",
+    "prismjs": "^1.30.0",
+    "reading-time": "^1.5.0",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-katex": "^7.0.1",
+    "rehype-raw": "^7.0.0",
+    "rehype-slug": "^6.0.0",
+    "rehype-stringify": "^10.0.1",
+    "remark-breaks": "^4.0.0",
+    "remark-emoji": "^5.0.2",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "unified": "^11.0.5"
   },
   "allowScripts": {
-    "esbuild": true
+    "esbuild": true,
+    "fsevents@2.3.3": true,
+    "workerd@1.20260916.1": true
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/hast": "^3.0.5",
+    "@types/mdast": "^4.0.4",
     "@types/node": "^26.5.1",
+    "@types/prismjs": "^1.26.6",
+    "@types/unist": "^3.0.3",
+    "esbuild": "^0.28.2",
+    "sharp": "^0.35.4",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3",
     "wrangler": "^4.131.2"
   }
 }
