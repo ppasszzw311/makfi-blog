@@ -1,15 +1,15 @@
 /**
-  测试用统计插件：随机生成全站与文章的 PV / UV 数字，用于本地调整统计显示效果。
+  測試用統計外掛：隨機生成全站與文章的 PV / UV 數字，用於本地調整統計顯示效果。
 
-  启用：site.config.ts 填 statsScript: 'random-visitor'（仅生产环境注入，dev 不生效）。
-  注意 client.ts 有 TTL 缓存（生产 5 分钟），TTL 内换页数字保持不变；清掉 sessionStorage
-  或等 TTL 过期即可看到新随机数。测试完记得换回正式统计脚本或留空停用。
+  啟用：site.config.ts 填 statsScript: 'random-visitor'（僅生產環境注入，dev 不生效）。
+  注意 client.ts 有 TTL 快取（生產 5 分鐘），TTL 內換頁數字保持不變；清掉 sessionStorage
+  或等 TTL 過期即可看到新隨機數。測試完記得換回正式統計指令碼或留空停用。
 */
 
-// 每次请求的人为延迟（毫秒），方便观察占位「-」到数字填充的过渡
+// 每次請求的人為延遲（毫秒），方便觀察佔位「-」到數字填充的過渡
 const FAKE_DELAY = 300
 
-// 位数的随机范围：[minDigits, maxDigits]，按需调整来测试不同长度的排版
+// 位數的隨機範圍：[minDigits, maxDigits]，按需調整來測試不同長度的排版
 const SITE_PV_DIGITS: [number, number] = [4, 6]
 const SITE_UV_DIGITS: [number, number] = [3, 5]
 const ARTICLE_PV_DIGITS: [number, number] = [1, 4]

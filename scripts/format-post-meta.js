@@ -60,7 +60,7 @@ for (const full of collectMdFiles(POSTS_DIR)) {
   changed += 1
 }
 
-// 所有文章元数据均已是规范顺序 / 共格式化 N 篇文章
+// 所有文章後設資料均已是規範順序 / 共格式化 N 篇文章
 console.log(
   changed === 0 ? 'all post meta already in canonical order' : `formatted ${changed} posts`,
 )

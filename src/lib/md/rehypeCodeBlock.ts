@@ -41,7 +41,7 @@ function normalizeLanguage(raw?: string) {
   return Prism.languages[cleaned] ? cleaned : ''
 }
 
-// 语言对应图标映射
+// 語言對應圖示對映
 const langIconMap: Record<string, IconName> = {
   javascript: 'mdi-language-javascript',
   js: 'mdi-language-javascript',
@@ -76,7 +76,7 @@ const langIconMap: Record<string, IconName> = {
   toml: 'mdi-file-cog-outline',
 }
 
-// 无对应代码图标使用通用图标
+// 無對應程式碼圖示使用通用圖示
 function langIcon(rawLang: string): IconName {
   const key =
     rawLang
@@ -107,7 +107,7 @@ function renderCodeBlockHtml(code: string, rawLang: string) {
   const langLabel = rawLang || 'text'
   const langClass = normalized ? `language-${normalized}` : 'language-text'
   const lineNumbers = buildLineNumbers(code)
-  return `<div class="code-block"><div class="code-header"><span class="code-lang">${iconSvg(langIcon(rawLang))}${escapeAttr(langLabel)}</span><button class="code-copy" type="button" onclick="window.__blogCopyCode(this)">${iconSvg('mdi-content-copy')}<span>复制</span></button></div><div class="code-body"><div class="code-gutter">${lineNumbers}</div><pre class="code-pre"><code class="${langClass}">${highlighted}</code></pre></div></div>`
+  return `<div class="code-block"><div class="code-header"><span class="code-lang">${iconSvg(langIcon(rawLang))}${escapeAttr(langLabel)}</span><button class="code-copy" type="button" onclick="window.__blogCopyCode(this)">${iconSvg('mdi-content-copy')}<span>複製</span></button></div><div class="code-body"><div class="code-gutter">${lineNumbers}</div><pre class="code-pre"><code class="${langClass}">${highlighted}</code></pre></div></div>`
 }
 
 function extractLang(code: Element): string {

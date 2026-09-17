@@ -2,18 +2,18 @@ import { mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'n
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-// 按文件保存时间（mtime）同步文章 frontmatter 的 updated 字段。
-// 通过 buildStart 触发：构建时和每次 dev 启动时都会同步一次；
-// dev 运行中修改文章不触发同步，避免保存过程中的中间态污染 updated。
+// 按檔案儲存時間（mtime）同步文章 frontmatter 的 updated 欄位。
+// 通過 buildStart 觸發：構建時和每次 dev 啟動時都會同步一次；
+// dev 執行中修改文章不觸發同步，避免儲存過程中的中間態汙染 updated。
 
 const POSTS_DIR = fileURLToPath(new URL('../src/content/posts', import.meta.url))
 const STATE_FILE = fileURLToPath(new URL('../.generated/post-updated.json', import.meta.url))
 
-// state: { "<posts 相对路径>": { mtime: <写入后文件 mtime 毫秒值>, stamp: <写入的 updated 值> } }
-// 写入 updated 本身会刷新文件 mtime，所以用「mtime 是否与上次写入时一致」来判断
-// 文件在同步之后有没有被再次保存，避免脚本自己的写入在每次启动时反复触发重写；
-// 不能写完再把 mtime 改回去：Git for Windows 的索引按秒比对 mtime，恢复后
-// 字节数相同的时间戳变更会被 git 误判为未修改，导致改动提交不上去。
+// state: { "<posts 相對路徑>": { mtime: <寫入後文件 mtime 毫秒值>, stamp: <寫入的 updated 值> } }
+// 寫入 updated 本身會重新整理檔案 mtime，所以用「mtime 是否與上次寫入時一致」來判斷
+// 檔案在同步之後有沒有被再次儲存，避免指令碼自己的寫入在每次啟動時反覆觸發重寫；
+// 不能寫完再把 mtime 改回去：Git for Windows 的索引按秒比對 mtime，恢復後
+// 位元組數相同的時間戳變更會被 git 誤判為未修改，導致改動提交不上去。
 let state = {}
 let stateLoaded = false
 
@@ -55,7 +55,7 @@ function syncPostUpdated(full, rel, log = false) {
   const stat = statSync(full)
   const mtime = Math.round(stat.mtimeMs)
   const cached = state[rel]
-  // 同步之后文件没有被再次保存（mtime 一致），无需处理
+  // 同步之後檔案沒有被再次儲存（mtime 一致），無需處理
   if (cached && cached.mtime === mtime) return false
 
   const raw = readFileSync(full, 'utf-8')
@@ -76,8 +76,8 @@ function syncPostUpdated(full, rel, log = false) {
   if (/^updated:.*$/m.test(fm[1])) {
     body = fm[1].replace(/^updated:.*$/m, `updated: ${stamp}`)
   } else {
-    // 缺失时追加到元数据末尾；有 draft 字段时插到 draft 之前，
-    // 与 format-post-meta 的规范字段顺序（...published、updated、draft）保持一致
+    // 缺失時追加到後設資料末尾；有 draft 欄位時插到 draft 之前，
+    // 與 format-post-meta 的規範字段順序（...published、updated、draft）保持一致
     const lines = fm[1].split(/\r?\n/)
     let at = lines.length
     for (let i = lines.length - 1; i >= 0; i -= 1) {
@@ -105,7 +105,7 @@ export function updatePostUpdated({ enabled = true } = {}) {
         full,
         rel: path.relative(POSTS_DIR, full).split(path.sep).join('/'),
       }))
-      // 清理已删除文章残留的状态
+      // 清理已刪除文章殘留的狀態
       for (const rel of Object.keys(state)) {
         if (!rels.some((r) => r.rel === rel)) delete state[rel]
       }

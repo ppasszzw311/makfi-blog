@@ -123,7 +123,7 @@ body {
   background-color: var(--wp-bg);
   background-image: var(--wp-grid-image);
   background-size: 28px 28px;
-  /* 限制背景跟随滚动 */
+  /* 限制背景跟隨滾動 */
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -139,7 +139,7 @@ a:hover {
   color: var(--wp-link-hover);
 }
 
-/* 隐藏所有竖直滚动条，横向保留细滚动条 */
+/* 隱藏所有豎直捲軸，橫向保留細捲軸 */
 ::-webkit-scrollbar {
   width: 0;
   height: 6px;
@@ -160,9 +160,9 @@ a:hover {
 html.is-theme-transitioning *,
 html.is-theme-transitioning *::before,
 html.is-theme-transitioning *::after {
-  /* biome-ignore lint/complexity/noImportantStyles: 主题切换瞬间必须强制覆盖全站过渡/动画 */
+  /* biome-ignore lint/complexity/noImportantStyles: 主題切換瞬間必須強制覆蓋全站過渡/動畫 */
   transition: none !important;
-  /* biome-ignore lint/complexity/noImportantStyles: 300ms 后由 JS 移除该类 */
+  /* biome-ignore lint/complexity/noImportantStyles: 300ms 後由 JS 移除該類 */
   animation: none !important;
 }
 

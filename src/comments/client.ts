@@ -1,42 +1,42 @@
 /**
-  评论客户端运行时（由 Comments.astro 在 site.config.ts commentScript 启用时注入）。
+  評論客戶端執行時（由 Comments.astro 在 site.config.ts commentScript 啟用時注入）。
 
-  工作方式：每次页面加载（首次整页 + Swup 导航，经 onPageLoad）查找评论区挂载点
-  （[data-comment-script]），用 IntersectionObserver 监听评论区临近视口时才动态
-  加载指名的适配器并挂载评论。评论在首屏之下时，首屏加载完全不请求任何评论资源。
+  工作方式：每次頁面載入（首次整頁 + Swup 導航，經 onPageLoad）查詢評論區掛載點
+  （[data-comment-script]），用 IntersectionObserver 監聽評論區臨近視口時才動態
+  載入指名的介面卡並掛載評論。評論在首屏之下時，首屏載入完全不請求任何評論資源。
 
-  性能四件套：
-  1. 懒加载：IntersectionObserver 提前 rootMargin 预载，不支持 IO 的环境降级为立即加载；
-  2. 代码拆分：import.meta.glob 让每个适配器成为独立 chunk，只拉取被指名的那一个，
-     模块会话级缓存，Swup 换页不重复拉取；
-  3. 预留占位：挂载区由服务端渲染（最小高度 + shimmer 骨架），适配器渲染出首个
-     非 script 子节点后撤掉骨架，全程无布局跳动；
-  4. 异步加载：适配器加载与第三方脚本注入均为异步，任何失败都只 console.warn
-     并隐藏评论区（is-error），不影响页面其余部分。
+  效能四件套：
+  1. 懶載入：IntersectionObserver 提前 rootMargin 預載，不支援 IO 的環境降級為立即載入；
+  2. 程式碼拆分：import.meta.glob 讓每個介面卡成為獨立 chunk，只拉取被指名的那一個，
+     模組會話級快取，Swup 換頁不重複拉取；
+  3. 預留佔位：掛載區由服務端渲染（最小高度 + shimmer 骨架），介面卡渲染出首個
+     非 script 子節點後撤掉骨架，全程無佈局跳動；
+  4. 非同步載入：介面卡載入與第三方指令碼注入均為非同步，任何失敗都只 console.warn
+     並隱藏評論區（is-error），不影響頁面其餘部分。
 
-  挂载点与适配器契约详见同目录《使用规则.md》。
+  掛載點與介面卡契約詳見同目錄《使用規則.md》。
  */
 import { onPageLoad } from '@/lib/pageLifecycle'
 
-// 评论适配器必须导出的接口（mountComment 必选，其余可选，按需导出）
+// 評論介面卡必須匯出的介面（mountComment 必選，其餘可選，按需匯出）
 export interface CommentAdapter {
-  // 把评论挂载进容器；抛错 = 挂载失败（运行时隐藏整个评论区）
+  // 把評論掛載進容器；拋錯 = 掛載失敗（執行時隱藏整個評論區）
   mountComment: (container: HTMLElement) => void | Promise<void>
-  // 主题切换回调（dark = 是否深色），由运行时监听全局 theme-change 事件转发
+  // 主題切換回調（dark = 是否深色），由執行時監聽全域性 theme-change 事件轉發
   onThemeChange?: (dark: boolean) => void
-  // Swup 换页、评论区即将随旧 DOM 销毁前的清理钩子（定时器/监听器等，一般无需）
+  // Swup 換頁、評論區即將隨舊 DOM 銷燬前的清理鉤子（定時器/監聽器等，一般無需）
   unmountComment?: () => void
 }
 
-// 提前预载距离：评论区距视口多近时开始加载适配器
+// 提前預載距離：評論區距視口多近時開始載入介面卡
 const LOAD_MARGIN = '300px 0px'
-// 骨架兜底超时（毫秒）：适配器已挂载但迟迟渲染不出内容时，超时撤掉骨架防卡死
+// 骨架兜底超時（毫秒）：介面卡已掛載但遲遲渲染不出內容時，超時撤掉骨架防卡死
 const SKELETON_TIMEOUT = 8000
 
-// ---------- 适配器加载（相对路径 glob，名字对不上即取不到，天然免疫路径穿越） ----------
+// ---------- 介面卡載入（相對路徑 glob，名字對不上即取不到，天然免疫路徑穿越） ----------
 
 const adapterModules = import.meta.glob<CommentAdapter>(['./*.ts', '!./client.ts'])
-// 会话级缓存：同一适配器只加载一次，Swup 换页直接复用
+// 會話級快取：同一介面卡只加載一次，Swup 換頁直接複用
 const adapterCache = new Map<string, Promise<CommentAdapter | null>>()
 
 function loadAdapter(name: string): Promise<CommentAdapter | null> {
@@ -45,18 +45,18 @@ function loadAdapter(name: string): Promise<CommentAdapter | null> {
     cached = (async () => {
       const importer = adapterModules[`./${name}.ts`]
       if (!importer) {
-        console.warn(`[comments] 未找到评论适配器 src/comments/${name}.ts，评论区已停用`)
+        console.warn(`[comments] 未找到評論介面卡 src/comments/${name}.ts，評論區已停用`)
         return null
       }
       try {
         const adapter = await importer()
         if (typeof adapter.mountComment !== 'function') {
-          console.warn(`[comments] 评论适配器 ${name}.ts 未导出 mountComment，评论区已停用`)
+          console.warn(`[comments] 評論介面卡 ${name}.ts 未匯出 mountComment，評論區已停用`)
           return null
         }
         return adapter
       } catch (err) {
-        console.warn(`[comments] 加载评论适配器 ${name}.ts 失败：`, err)
+        console.warn(`[comments] 載入評論介面卡 ${name}.ts 失敗：`, err)
         return null
       }
     })()
@@ -65,7 +65,7 @@ function loadAdapter(name: string): Promise<CommentAdapter | null> {
   return cached
 }
 
-// ---------- 占位状态机：适配器渲染出内容（非 script 子节点）后撤掉骨架 ----------
+// ---------- 佔位狀態機：介面卡渲染出內容（非 script 子節點）後撤掉骨架 ----------
 
 function watchContent(container: HTMLElement, onContent: () => void) {
   const done = () => {
@@ -74,7 +74,7 @@ function watchContent(container: HTMLElement, onContent: () => void) {
     onContent()
   }
   const observer = new MutationObserver(() => {
-    // script 标签只是引导代码（如 utterances 注入的 client.js），不算渲染完成
+    // script 標籤只是引導程式碼（如 utterances 注入的 client.js），不算渲染完成
     if (Array.from(container.children).some((el) => el.tagName !== 'SCRIPT')) done()
   })
   const timer = setTimeout(done, SKELETON_TIMEOUT)
@@ -85,7 +85,7 @@ function watchContent(container: HTMLElement, onContent: () => void) {
   }
 }
 
-// ---------- 每次页面加载：临近视口才加载适配器并挂载 ----------
+// ---------- 每次頁面載入：臨近視口才載入介面卡並掛載 ----------
 
 let currentAdapter: CommentAdapter | null = null
 
@@ -109,7 +109,7 @@ async function mount(section: HTMLElement) {
   } catch (err) {
     stopWatching()
     currentAdapter = null
-    console.warn(`[comments] 挂载评论适配器 ${name}.ts 失败：`, err)
+    console.warn(`[comments] 掛載評論介面卡 ${name}.ts 失敗：`, err)
     section.classList.add('is-error')
   }
 }
@@ -134,7 +134,7 @@ function init() {
   }
 }
 
-// ---------- 全局事件：主题转发 + 换页清理 ----------
+// ---------- 全域性事件：主題轉發 + 換頁清理 ----------
 
 document.addEventListener('theme-change', (e) => {
   currentAdapter?.onThemeChange?.((e as CustomEvent<string>).detail === 'dark')

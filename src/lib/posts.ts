@@ -14,7 +14,7 @@ export interface NameCount {
   count: number
 }
 
-// 全部文章，生产环境排除 'draft: true' ，顺序置顶顺序再到时间倒叙排列
+// 全部文章，生產環境排除 'draft: true' ，順序置頂順序再到時間倒敘排列
 export async function getPublishedPosts(): Promise<Post[]> {
   const posts = await getCollection('posts', ({ data }) => {
     return import.meta.env.PROD ? !data.draft : true
@@ -25,12 +25,12 @@ export async function getPublishedPosts(): Promise<Post[]> {
   )
 }
 
-// 字数统计（reading-time 词边界统计：CJK 逐字计入、英文按词计入，Markdown 语法符号不计）
+// 字數統計（reading-time 詞邊界統計：CJK 逐字計入、英文按詞計入，Markdown 語法符號不計）
 export function wordCount(post: Post): number {
   return readingTime(post.body ?? '').words
 }
 
-// 阅读时长：400 字/分钟，最少 1 分钟
+// 閱讀時長：400 字/分鐘，最少 1 分鐘
 export function readMinutes(post: Post): number {
   return Math.max(1, Math.ceil(wordCount(post) / 400))
 }
@@ -40,7 +40,7 @@ export function formatDate(date: Date): string {
   return dayjs(date).format('YYYY-MM-DD HH:mm')
 }
 
-// 摘要：description 优先，否则从正文顺序提取 120 字
+// 摘要：description 優先，否則從正文順序提取 120 字
 export function excerptOf(post: Post): string {
   if (post.data.description) return post.data.description
   const stripped = (post.body ?? '')
@@ -50,17 +50,17 @@ export function excerptOf(post: Post): string {
   return stripped.length > 120 ? `${stripped.slice(0, 120)}...` : stripped
 }
 
-// 全站字数
+// 全站字數
 export function totalWords(posts: Post[]): number {
   return posts.reduce((sum, p) => sum + wordCount(p), 0)
 }
 
-// 全站阅读时长
+// 全站閱讀時長
 export function totalMinutes(posts: Post[]): number {
   return posts.reduce((sum, p) => sum + readMinutes(p), 0)
 }
 
-// 分类（默认按数量降序）
+// 分類（預設按數量降序）
 export function groupByCategory(posts: Post[]): NameCount[] {
   const map = new Map<string, number>()
   for (const p of posts) {
@@ -71,7 +71,7 @@ export function groupByCategory(posts: Post[]): NameCount[] {
     .sort((a, b) => b.count - a.count)
 }
 
-// 标签（默认按数量降序）
+// 標籤（預設按數量降序）
 export function groupByTags(posts: Post[]): NameCount[] {
   const map = new Map<string, number>()
   for (const p of posts) {
@@ -84,7 +84,7 @@ export function groupByTags(posts: Post[]): NameCount[] {
     .sort((a, b) => b.count - a.count)
 }
 
-// 归档，按年分组，固定为倒序
+// 歸檔，按年分組，固定為倒序
 export function groupByYear(posts: Post[]): YearGroup[] {
   const map = new Map<string, Post[]>()
   for (const p of posts) {
@@ -101,7 +101,7 @@ export function groupByYear(posts: Post[]): YearGroup[] {
     .map(([year, items]) => ({ year, items }))
 }
 
-// 归档日期格式：MM-DD
+// 歸檔日期格式：MM-DD
 export function monthDay(date: Date): string {
   return dayjs(date).format('MM-DD')
 }

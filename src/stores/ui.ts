@@ -12,8 +12,8 @@ function sortSetting(key: string) {
   }
 }
 
-// 分类页排序，默认按数量
+// 分類頁排序，預設按數量
 export const categoriesSort = sortSetting('categoriesSort')
 
-// 标签页排序，默认按数量
+// 標籤頁排序，預設按數量
 export const tagsSort = sortSetting('tagsSort')

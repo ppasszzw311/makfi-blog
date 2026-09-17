@@ -1,118 +1,118 @@
 {
   "nav": {
-    "home": "首页",
-    "archive": "归档",
-    "categories": "分类",
-    "tags": "标签",
-    "friends": "友链",
-    "about": "关于"
+    "home": "首頁",
+    "archive": "歸檔",
+    "categories": "分類",
+    "tags": "標籤",
+    "friends": "友鏈",
+    "about": "關於"
   },
   "header": {
-    "menu": "菜单",
-    "switchToLight": "切换到亮色模式",
-    "switchToDark": "切换到暗色模式"
+    "menu": "選單",
+    "switchToLight": "切換到亮色模式",
+    "switchToDark": "切換到暗色模式"
   },
   "search": {
-    "title": "搜索文章",
-    "placeholder": "输入标题、分类或标签…",
-    "hint": "输入关键词开始搜索",
-    "empty": "没有匹配的文章",
-    "failed": "搜索索引不可用（需构建后可用）",
-    "open": "搜索文章"
+    "title": "搜尋文章",
+    "placeholder": "輸入標題、分類或標籤…",
+    "hint": "輸入關鍵詞開始搜尋",
+    "empty": "沒有匹配的文章",
+    "failed": "搜尋索引不可用（需構建後可用）",
+    "open": "搜尋文章"
   },
   "post": {
-    "uncategorized": "未分类",
+    "uncategorized": "未分類",
     "words": "字",
-    "minutes": "分钟",
+    "minutes": "分鐘",
     "visitorsUnit": "人",
-    "updated": "更新于",
+    "updated": "更新於",
     "prev": "← 上一篇",
     "next": "下一篇 →",
-    "noMore": "没有了",
-    "toc": "目录",
-    "tableOfContents": "目录",
-    "backHome": "返回首页",
-    "copy": "复制",
-    "copied": "已复制",
-    "footnotes": "脚注",
+    "noMore": "沒有了",
+    "toc": "目錄",
+    "tableOfContents": "目錄",
+    "backHome": "返回首頁",
+    "copy": "複製",
+    "copied": "已複製",
+    "footnotes": "腳註",
     "copyright": {
-      "author": "版权所有 © {year}",
-      "licenseLabel": "许可协议",
-      "licenseText": "本作品采用{link}进行许可。",
-      "licenseName": "知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议",
+      "author": "版權所有 © {year}",
+      "licenseLabel": "許可協議",
+      "licenseText": "本作品採用{link}進行許可。",
+      "licenseName": "知識共享署名-非商業性使用-相同方式共享 4.0 國際許可協議",
       "mayTitle": "您可以：",
-      "mayText": "转载、分享、复制、修改本作品（任何媒介或格式）。",
-      "mustTitle": "但必须遵守：",
-      "mustText": "署名（注明作者及来源链接）、非商业性使用（不得用于商业盈利）、相同方式共享（修改后的作品需使用相同许可协议）。",
-      "originalLink": "原文链接：",
-      "disclaimer": "免责声明：本站内容仅供学习与技术交流，不构成任何形式的专业建议。"
+      "mayText": "轉載、分享、複製、修改本作品（任何媒介或格式）。",
+      "mustTitle": "但必須遵守：",
+      "mustText": "署名（註明作者及來源連結）、非商業性使用（不得用於商業盈利）、相同方式共享（修改後的作品需使用相同許可協議）。",
+      "originalLink": "原文連結：",
+      "disclaimer": "免責宣告：本站內容僅供學習與技術交流，不構成任何形式的專業建議。"
     }
   },
   "list": {
-    "empty": "暂无文章",
-    "pinned": "置顶",
-    "readMore": "前往阅读 →",
+    "empty": "暫無文章",
+    "pinned": "置頂",
+    "readMore": "前往閱讀 →",
     "postsUnit": "篇"
   },
   "archive": {
-    "title": "归档",
-    "subtitle": "按发布时间倒序排列"
+    "title": "歸檔",
+    "subtitle": "按釋出時間倒序排列"
   },
   "categories": {
-    "title": "分类",
-    "subtitle": "按名称或数量排序，点击查看分类下的全部文章",
-    "searchPlaceholder": "搜索分类…",
-    "empty": "没有匹配的分类",
-    "total": "共 {n} 个分类"
+    "title": "分類",
+    "subtitle": "按名稱或數量排序，點選檢視分類下的全部文章",
+    "searchPlaceholder": "搜尋分類…",
+    "empty": "沒有匹配的分類",
+    "total": "共 {n} 個分類"
   },
   "tags": {
-    "title": "标签",
-    "subtitle": "按名称或数量排序，点击查看标签下的全部文章",
-    "searchPlaceholder": "搜索标签…",
-    "empty": "没有匹配的标签",
-    "total": "共 {n} 个标签"
+    "title": "標籤",
+    "subtitle": "按名稱或數量排序，點選檢視標籤下的全部文章",
+    "searchPlaceholder": "搜尋標籤…",
+    "empty": "沒有匹配的標籤",
+    "total": "共 {n} 個標籤"
   },
   "friends": {
-    "subtitle": "常来常往的朋友，都在这里。",
-    "emptyTitle": "这里还没有朋友",
-    "emptySub": "在 {config} 里添加一行网址，就能相遇"
+    "subtitle": "常來常往的朋友，都在這裡。",
+    "emptyTitle": "這裡還沒有朋友",
+    "emptySub": "在 {config} 裡新增一行網址，就能相遇"
   },
   "profile": {
     "wordsUnit": "字",
-    "hoursUnit": "小时",
+    "hoursUnit": "小時",
     "articlesUnit": "篇",
-    "wordsLabel": "博客总字数",
-    "hoursLabel": "预计阅读",
-    "articlesLabel": "博客总篇数",
+    "wordsLabel": "部落格總字數",
+    "hoursLabel": "預計閱讀",
+    "articlesLabel": "部落格總篇數",
     "pvUnit": "次",
-    "pvLabel": "累计访问",
+    "pvLabel": "累計訪問",
     "uvUnit": "人",
-    "uvLabel": "独立访客"
+    "uvLabel": "獨立訪客"
   },
   "pagination": {
-    "prev": "上一页",
-    "next": "下一页",
-    "pageTitle": "第 {n} 页"
+    "prev": "上一頁",
+    "next": "下一頁",
+    "pageTitle": "第 {n} 頁"
   },
   "pageTitle": {
-    "category": "分类：{name}",
-    "tag": "标签：{name}",
-    "about": "关于"
+    "category": "分類：{name}",
+    "tag": "標籤：{name}",
+    "about": "關於"
   },
   "footer": {
     "rss": "RSS",
     "sitemap": "Sitemap",
-    "running": "博客已运行 {days} 天"
+    "running": "部落格已執行 {days} 天"
   },
   "notFound": {
     "title": "404",
-    "message": "页面未找到",
-    "back": "返回上一页",
-    "home": "返回首页"
+    "message": "頁面未找到",
+    "back": "返回上一頁",
+    "home": "返回首頁"
   },
   "misc": {
-    "sortByName": "按名称",
-    "sortByCount": "按数量",
-    "backToTop": "回到顶部"
+    "sortByName": "按名稱",
+    "sortByCount": "按數量",
+    "backToTop": "回到頂部"
   }
 }

@@ -5,7 +5,7 @@ import { transformSync } from 'esbuild'
 
 const DIST_DIR = path.resolve(process.cwd(), 'dist')
 
-// 遍历 dist 收集 HTML
+// 遍歷 dist 收集 HTML
 
 function collectHtmlFiles(dir, out = []) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
@@ -16,7 +16,7 @@ function collectHtmlFiles(dir, out = []) {
   return out
 }
 
-// 内联脚本压缩
+// 內聯指令碼壓縮
 
 const SCRIPT_RE = /<script([^>]*)>([\s\S]*?)<\/script>/gi
 
@@ -100,7 +100,7 @@ async function main() {
     return
   }
 
-  // pagefind 只读 HTML 内容，与后处理互不影响，并行执行
+  // pagefind 只讀 HTML 內容，與後處理互不影響，並行執行
   const pagefind = spawn('pagefind', ['--site', 'dist'], {
     stdio: 'inherit',
     shell: process.platform === 'win32',

@@ -22,15 +22,15 @@ const template = `---
 title: "${slug}"
 slug:
 index: 0
-description: "一句话摘要"
-category: "未分类"
+description: "一句話摘要"
+category: "未分類"
 tags: []
 published: ${datetime}
 ---
 
-从这里开始写作。
+從這裡開始寫作。
 `
 
 writeFileSync(file, template, 'utf-8')
-// 已创建：
+// 已建立：
 console.log(`created: ${file}`)

@@ -25,7 +25,7 @@ import { siteConfig } from './src/site.config.ts'
 
 const site = siteConfig.url
 
-// 脚注标题走 i18n：markdown 处理器是构建期全局配置，取站点默认语言
+// 腳註標題走 i18n：markdown 處理器是構建期全域性配置，取站點預設語言
 const footnoteLabel = { zh: zhJson, ja: jaJson, en: enJson }[siteConfig.defaultLang].post.footnotes
 
 export default defineConfig({

@@ -29,8 +29,8 @@ const posts = defineCollection({
     description: z.string().min(1),
     category: z
       .union([z.string(), z.array(z.string())])
-      .default('未分类')
-      .transform((v) => normalizeList(v)[0] ?? '未分类'),
+      .default('未分類')
+      .transform((v) => normalizeList(v)[0] ?? '未分類'),
     tags: z
       .union([z.string(), z.array(z.string())])
       .default('')

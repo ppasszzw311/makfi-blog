@@ -131,11 +131,11 @@ async function main() {
         .sort(([a], [b]) => (a < b ? -1 : 1)),
     )
     writeFileSync(OUT_FILE, `${JSON.stringify(sorted, null, 2)}\n`, 'utf-8')
-    // 本次处理 N 张（成功 N），共 N 条
+    // 本次處理 N 張（成功 N），共 N 條
     console.log(
       `[lqip] processed ${pending.length} (ok ${pending.length - failed.length}), total ${Object.keys(sorted).length} entries`,
     )
-    // 取色失败已跳过（运行时降级灰渐变）
+    // 取色失敗已跳過（執行時降級灰漸變）
     if (failed.length)
       console.warn(
         `[lqip] sampling failed, skipped (runtime falls back to gray gradient):\n  ${failed.join('\n  ')}`,
@@ -149,7 +149,7 @@ async function main() {
     if (Object.keys(sorted).length !== Object.keys(existing).length) {
       writeFileSync(OUT_FILE, `${JSON.stringify(sorted, null, 2)}\n`, 'utf-8')
     }
-    // 增量命中，共 N 条，无新增
+    // 增量命中，共 N 條，無新增
     console.log(`[lqip] incremental hit, total ${Object.keys(sorted).length} entries, nothing new`)
   }
 }
@@ -165,7 +165,7 @@ export function generateLqips() {
       try {
         await main()
       } catch (err) {
-        // 生成失败，本次构建使用无 LQIP 降级骨架
+        // 生成失敗，本次構建使用無 LQIP 降級骨架
         console.warn('[lqip] generation failed, building without LQIP fallback skeleton:', err)
       }
     },
@@ -174,7 +174,7 @@ export function generateLqips() {
 
 if (process.argv[1] && path.resolve(process.argv[1]) === THIS_FILE) {
   main().catch((err) => {
-    // 生成失败:
+    // 生成失敗:
     console.error('[lqip] generation failed:', err)
     process.exitCode = 1
   })
