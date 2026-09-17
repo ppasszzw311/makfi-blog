@@ -4,7 +4,7 @@
     "archive": "アーカイブ",
     "categories": "カテゴリー",
     "tags": "タグ",
-    "friends": "リンク",
+    "portfolio": "ポートフォリオ",
     "about": "について"
   },
   "header": {
@@ -72,10 +72,22 @@
     "empty": "一致するタグがありません",
     "total": "全 {n} タグ"
   },
-  "friends": {
-    "subtitle": "お世話になっている仲間たち。",
-    "emptyTitle": "まだ友達がいません",
-    "emptySub": "{config} にURLを追加すれば、出会えます"
+  "portfolio": {
+    "subtitle": "これまで作った作品をまとめています。",
+    "emptyTitle": "まだ作品がありません",
+    "emptySub": "{config} に項目を追加すると、ここに表示されます",
+    "liveLabel": "サイトを見る",
+    "repoLabel": "ソースコード"
+  },
+  "about": {
+    "emptyTitle": "履歴書はまだ入力されていません",
+    "emptySub": "{config} に情報を入力すると、ここに表示されます",
+    "summary": "自己紹介",
+    "skills": "スキル",
+    "experience": "職歴",
+    "education": "学歴",
+    "certifications": "資格・受賞歴",
+    "portfolioCta": "作品を見る →"
   },
   "profile": {
     "wordsUnit": "文字",

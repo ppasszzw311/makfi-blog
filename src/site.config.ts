@@ -3,11 +3,14 @@ export interface SocialLink {
   url: string
 }
 
-export interface FriendLinkRaw {
-  url: string
-  name?: string
-  desc?: string
-  icon?: string
+export interface PortfolioItemRaw {
+  title: string
+  description: string
+  url?: string
+  repoUrl?: string
+  image?: string
+  tags?: string[]
+  period?: string
 }
 
 export const siteConfig = {
@@ -17,9 +20,9 @@ export const siteConfig = {
   url: 'https://blog.makfichen.dev',
 
   // 站點資訊 Site info
-  title: 'Astro Blog',
-  subtitle: 'Welcome to my website!',
-  description: 'Welcome to my website!',
+  title: 'Pablo Chen\'s Blog',
+  subtitle: 'Pablo 的筆記小天地!',
+  description: 'Pablo 的筆記小天地!',
 
   // 首頁卡片的頭像和網站圖示 Logo ， public/ 下的靜態路徑，以 / 開頭
   // Avatar and site logo for the home profile card. Static paths under public/, starting with /
@@ -28,7 +31,7 @@ export const siteConfig = {
   logo: '/logo.webp',
 
   // 作者 Author name
-  author: 'MakFiChen',
+  author: 'Pablo Chen',
 
   // 預設語言： zh 、 ja 、 en
   // Default language: zh, ja, en
@@ -52,9 +55,10 @@ export const siteConfig = {
   // Statistics script. Scripts live in src/stats/, see src/stats/usageRules.md for the plugin contract. Leave empty to disable
   statsScript: '',
 
-  // 友鏈，改為空陣列 [] 顯示空狀態頁。icon 放在 public/friends/ 下，引用以 /friends/檔名.字尾
-  // Friend links. Set to an empty array [] to show an empty state. Icons go under public/friends/ and are referenced as /friends/filename.ext
-  friends: [] as FriendLinkRaw[],
+  // 作品集，改為空陣列 [] 顯示空狀態頁。截圖放在 public/portfolio/ 下，引用以 /portfolio/檔名.字尾
+  // Portfolio items. Set to an empty array [] to show an empty state. Screenshots go under public/portfolio/ and are referenced as /portfolio/filename.ext
+  // 例 e.g. { title: '個人部落格', description: '用 Astro 打造的個人部落格', url: 'https://blog.example.com', repoUrl: 'https://github.com/you/blog', image: '/portfolio/blog.webp', tags: ['Astro', 'TypeScript'], period: '2025.09' }
+  portfolio: [] as PortfolioItemRaw[],
 
   // 評論指令碼，指令碼位於 src/comments/ 目錄，契約詳見 src/comments/使用規則.md ，留空不啟用評論區
   // Comment script. Scripts live in src/comments/, see src/comments/usageRules.md for the adapter contract. Leave empty to disable the comment section

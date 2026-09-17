@@ -4,7 +4,7 @@
     "archive": "Archive",
     "categories": "Categories",
     "tags": "Tags",
-    "friends": "Friends",
+    "portfolio": "Portfolio",
     "about": "About"
   },
   "header": {
@@ -72,10 +72,22 @@
     "empty": "No matching tags",
     "total": "{n} tags in total"
   },
-  "friends": {
-    "subtitle": "Friends worth visiting, all in one place.",
-    "emptyTitle": "No friends here yet",
-    "emptySub": "Add a URL in {config} and you'll meet"
+  "portfolio": {
+    "subtitle": "A selection of things I've built.",
+    "emptyTitle": "No projects here yet",
+    "emptySub": "Add an entry in {config} to show it here",
+    "liveLabel": "Live site",
+    "repoLabel": "Source code"
+  },
+  "about": {
+    "emptyTitle": "Résumé not filled in yet",
+    "emptySub": "Add your info in {config} and it will show up here",
+    "summary": "About Me",
+    "skills": "Skills",
+    "experience": "Experience",
+    "education": "Education",
+    "certifications": "Certifications",
+    "portfolioCta": "See my projects →"
   },
   "profile": {
     "wordsUnit": "words",

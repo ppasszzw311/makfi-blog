@@ -1,18 +1,171 @@
-<div class="mx-auto max-w-[800px] mt-8">
+---
+import Icon from '@/components/Icon.astro'
+import { defaultLang, type Lang, localePath, useTranslations } from '@/i18n/ui'
+import {
+  mdiCalendarOutline,
+  mdiEmailOutline,
+  mdiGithub,
+  mdiImageOutline,
+  mdiLinkedin,
+  mdiLinkVariant,
+  mdiSchool,
+  mdiWeb,
+} from '@/lib/icons'
+import { resumeConfig } from '@/resume.config'
+import { siteConfig } from '@/site.config'
+
+interface Props {
+  lang?: Lang
+}
+
+const { lang = defaultLang } = Astro.props
+const t = useTranslations(lang)
+
+const { title, summary, contacts, skills, experience, education, certifications } = resumeConfig
+
+const hasContent =
+  Boolean(summary) ||
+  contacts.length > 0 ||
+  skills.length > 0 ||
+  experience.length > 0 ||
+  education.length > 0 ||
+  certifications.length > 0
+
+const contactIcons: Record<string, string> = {
+  email: mdiEmailOutline,
+  github: mdiGithub,
+  linkedin: mdiLinkedin,
+  website: mdiWeb,
+  link: mdiLinkVariant,
+}
+---
+
+<div class="mx-auto mt-8 max-w-[800px]">
   <header class="mb-10 text-center">
-    <h1 class="font-serif text-[1.75rem] font-bold text-ink">About</h1>
-    <p class="mt-3 text-[0.9rem] leading-relaxed text-ink-2">
-      Welcome to my website!
-    </p>
+    <img
+      class="mx-auto h-20 w-20 rounded-full border border-line-light object-cover shadow-card"
+      src={siteConfig.avatar}
+      alt={siteConfig.author}
+      width="80"
+      height="80"
+    />
+    <h1 class="mt-4 font-serif text-[1.75rem] font-bold text-ink">{siteConfig.author}</h1>
+    {title && <p class="mt-1 text-[0.95rem] font-medium text-accent">{title}</p>}
+
+    {
+      contacts.length > 0 && (
+        <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
+          {contacts.map((c) => (
+            <a
+              href={c.url || '#'}
+              target={c.url?.startsWith('http') ? '_blank' : undefined}
+              rel={c.url?.startsWith('http') ? 'noopener noreferrer' : undefined}
+              class="inline-flex items-center gap-1.5 rounded-[6px] border border-line-light bg-surface px-3 py-1.5 text-[0.8rem] text-ink-2 transition hover:border-accent hover:text-accent"
+            >
+              <Icon d={contactIcons[c.icon ?? 'link'] ?? mdiLinkVariant} class="text-sm" />
+              {c.label}: {c.value}
+            </a>
+          ))}
+        </div>
+      )
+    }
   </header>
 
-  <section class="mt-6 rounded-[8px] border border-line-light bg-surface p-6 shadow-card">
-    <p class="text-sm text-ink-2">
-      This is a personal blog built with
-      <a href="https://astro.build" target="_blank" rel="noopener noreferrer" class="text-accent transition hover:text-accent-hover">Astro</a>
-      and the
-      <a href="https://github.com/rightdoor/citrus-grid" target="_blank" rel="noopener noreferrer" class="text-accent transition hover:text-accent-hover">CitrusGrid</a>
-      theme. Edit <code>src/components/pages/AboutPage.astro</code> to personalize this page.
-    </p>
-  </section>
+  {
+    !hasContent ? (
+      <div class="rounded-[8px] border border-dashed border-line-light bg-surface py-16 text-center shadow-card">
+        <Icon d={mdiImageOutline} class="mx-auto block text-5xl text-ink-3 opacity-50" />
+        <p class="mt-5 text-[1.05rem] font-semibold text-ink-2">{t('about.emptyTitle')}</p>
+        <p class="mt-2 text-[0.82rem] text-ink-3" set:html={t('about.emptySub', { config: '<code>src/resume.config.ts</code>' })} />
+      </div>
+    ) : (
+      <div class="flex flex-col gap-6">
+        {summary && (
+          <section class="rounded-[8px] border border-line-light bg-surface p-6 shadow-card">
+            <h2 class="mb-3 font-semibold uppercase tracking-wider text-ink-3">{t('about.summary')}</h2>
+            <p class="text-[0.92rem] leading-relaxed text-ink-2">{summary}</p>
+          </section>
+        )}
+
+        {skills.length > 0 && (
+          <section class="rounded-[8px] border border-line-light bg-surface p-6 shadow-card">
+            <h2 class="mb-4 font-semibold uppercase tracking-wider text-ink-3">{t('about.skills')}</h2>
+            <div class="flex flex-col gap-3">
+              {skills.map((group) => (
+                <div class="flex flex-wrap items-baseline gap-x-3 gap-y-2">
+                  <span class="w-24 shrink-0 text-[0.82rem] font-semibold text-ink">{group.category}</span>
+                  <div class="flex flex-1 flex-wrap gap-2">
+                    {group.items.map((skill) => (
+                      <span class="rounded-[4px] bg-paper px-2.5 py-1 text-[0.78rem] text-ink-2">{skill}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {experience.length > 0 && (
+          <section class="rounded-[8px] border border-line-light bg-surface p-6 shadow-card">
+            <h2 class="mb-4 font-semibold uppercase tracking-wider text-ink-3">{t('about.experience')}</h2>
+            <div class="flex flex-col gap-6">
+              {experience.map((job) => (
+                <div class="border-l-2 border-line-light pl-4">
+                  <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                    <span class="font-semibold text-ink">{job.role} · {job.company}</span>
+                    <span class="inline-flex items-center gap-1 text-[0.78rem] text-ink-3">
+                      <Icon d={mdiCalendarOutline} class="text-xs" />
+                      {job.period}
+                    </span>
+                  </div>
+                  {job.location && <p class="mt-0.5 text-[0.78rem] text-ink-3">{job.location}</p>}
+                  {job.highlights.length > 0 && (
+                    <ul class="mt-2 list-disc space-y-1 pl-4 text-[0.85rem] leading-relaxed text-ink-2">
+                      {job.highlights.map((h) => (
+                        <li>{h}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {education.length > 0 && (
+          <section class="rounded-[8px] border border-line-light bg-surface p-6 shadow-card">
+            <h2 class="mb-4 font-semibold uppercase tracking-wider text-ink-3">{t('about.education')}</h2>
+            <div class="flex flex-col gap-3">
+              {education.map((e) => (
+                <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                  <span class="inline-flex items-center gap-1.5 font-semibold text-ink">
+                    <Icon d={mdiSchool} class="text-sm text-ink-3" />
+                    {e.school} · {e.degree}
+                  </span>
+                  <span class="text-[0.78rem] text-ink-3">{e.period}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {certifications.length > 0 && (
+          <section class="rounded-[8px] border border-line-light bg-surface p-6 shadow-card">
+            <h2 class="mb-4 font-semibold uppercase tracking-wider text-ink-3">{t('about.certifications')}</h2>
+            <ul class="list-disc space-y-1 pl-5 text-[0.85rem] leading-relaxed text-ink-2">
+              {certifications.map((c) => (
+                <li>{c}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <div class="text-center">
+          <a href={localePath(lang, '/portfolio')} class="text-[0.9rem] font-medium text-accent transition hover:text-accent-hover">
+            {t('about.portfolioCta')}
+          </a>
+        </div>
+      </div>
+    )
+  }
 </div>

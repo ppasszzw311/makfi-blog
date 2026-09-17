@@ -1,0 +1,14 @@
+---
+import PortfolioPage from '@/components/pages/PortfolioPage.astro'
+import { defaultLang, useTranslations } from '@/i18n/ui'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { getPortfolioItems } from '@/lib/portfolio'
+
+const lang = defaultLang
+const t = useTranslations(lang)
+const items = getPortfolioItems()
+---
+
+<BaseLayout lang={lang} title={t('nav.portfolio')}>
+  <PortfolioPage lang={lang} items={items} />
+</BaseLayout>

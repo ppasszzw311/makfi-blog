@@ -90,7 +90,7 @@ When enabled, `src/components/Comments.astro` renders the comment section mount 
 
 | Mount point | Location | Structure |
 | --- | --- | --- |
-| `<section data-comment-script="adapter-name">` | End of PostPage and FriendsPage | Contains a `.comment-skeleton` skeleton and the `.comment-mount` mount container |
+| `<section data-comment-script="adapter-name">` | End of PostPage | Contains a `.comment-skeleton` skeleton and the `.comment-mount` mount container |
 
 The skeleton is removed when the mount container gains its first non-`script` child (i.e. the widget's real content), with an 8-second timeout as a failsafe against a stuck skeleton.
 

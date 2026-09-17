@@ -4,7 +4,7 @@
     "archive": "歸檔",
     "categories": "分類",
     "tags": "標籤",
-    "friends": "友鏈",
+    "portfolio": "作品集",
     "about": "關於"
   },
   "header": {
@@ -72,10 +72,22 @@
     "empty": "沒有匹配的標籤",
     "total": "共 {n} 個標籤"
   },
-  "friends": {
-    "subtitle": "常來常往的朋友，都在這裡。",
-    "emptyTitle": "這裡還沒有朋友",
-    "emptySub": "在 {config} 裡新增一行網址，就能相遇"
+  "portfolio": {
+    "subtitle": "整理了一些做過的作品。",
+    "emptyTitle": "這裡還沒有作品",
+    "emptySub": "在 {config} 裡新增一筆資料，就會顯示在這裡",
+    "liveLabel": "線上網站",
+    "repoLabel": "原始碼"
+  },
+  "about": {
+    "emptyTitle": "履歷還沒有內容",
+    "emptySub": "在 {config} 裡填寫資料，就會顯示在這裡",
+    "summary": "關於我",
+    "skills": "技能",
+    "experience": "工作經歷",
+    "education": "學歷",
+    "certifications": "證照與獲獎",
+    "portfolioCta": "查看作品集 →"
   },
   "profile": {
     "wordsUnit": "字",
